@@ -14,12 +14,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/generate-pdf', async (req, res) => {
   // Launch a new browser session.
-  const { stdout: chromiumPath } = await promisify(exec)("which chromium")
+  // const { stdout: chromiumPath } = await promisify(exec)("which chromium")
   
+  // const browser = await puppeteer.launch({
+  //   headless: false,
+  //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  //   executablePath: chromiumPath.trim()
+  // });
+
   const browser = await puppeteer.launch({
-    headless: false,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    executablePath: chromiumPath.trim()
+    headless: true, // On a server, this should be true as there's no GUI.
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    // No executablePath needed
   });
 
   // Create a new page.
