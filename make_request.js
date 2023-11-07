@@ -8,7 +8,7 @@ const postData = {
 };
 
 // Configure Axios to make a POST request
-axios.post('http://localhost:3000/generate-pdf', postData, {
+axios.post('https://puppeteer.diyankalaydzhie.repl.co/generate-pdf', postData, {
   responseType: 'arraybuffer', // Important to handle binary data
   headers: {
     'Content-Type': 'application/json'

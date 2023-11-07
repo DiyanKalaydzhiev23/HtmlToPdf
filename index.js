@@ -1,5 +1,8 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer")
+const { exec } = require("node:child_process")
+const { promisify } = require("node:util")
+
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -9,13 +12,23 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/', async (req, res) => {
+  res.send(200);
+});
+
 app.post('/generate-pdf', async (req, res) => {
   // Launch a new browser session.
-  const browser = await puppeteer.launch();
+  const { stdout: chromiumPath } = await promisify(exec)("which chromium")
   
+  const browser = await puppeteer.launch({
+    headless: false,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    executablePath: chromiumPath.trim()
+  });
+
   // Create a new page.
   const page = await browser.newPage();
-  
+
   // Set the content of the page that will be used in PDF generation.
   await page.setContent(req.body.htmlContent || '<h1>No content provided</h1>');
 
