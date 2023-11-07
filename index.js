@@ -12,10 +12,6 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', async (req, res) => {
-  res.send(200);
-});
-
 app.post('/generate-pdf', async (req, res) => {
   // Launch a new browser session.
   const { stdout: chromiumPath } = await promisify(exec)("which chromium")

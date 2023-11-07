@@ -7,8 +7,8 @@ const postData = {
   htmlContent: '<h1>Hello, World!</h1>'
 };
 
-// Configure Axios to make a POST request
-axios.post('https://puppeteer.diyankalaydzhie.repl.co/generate-pdf', postData, {
+// Configure Axios to make a POST request https://puppeteer.diyankalaydzhie.repl.co/generate-pdf
+axios.post('https://html-to-pdf-x2y3.onrender.com/generate-pdf', postData, {
   responseType: 'arraybuffer', // Important to handle binary data
   headers: {
     'Content-Type': 'application/json'
